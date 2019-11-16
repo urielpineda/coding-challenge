@@ -7,14 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.upineda.codingchallenge.ItemDetailFragment.Companion.TRACK_RESULT
+import com.upineda.codingchallenge.ui.ItemListActivity.Companion.DETAILED_TRACK_RECEIVER
 import kotlinx.android.synthetic.main.item_list_content.view.*
-
-
-/*
-*
-*
-*
- */
 
 class TracksListAdapter :
     ListAdapter<Track, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Track>() {
@@ -38,19 +33,16 @@ class TracksListAdapter :
         val track = getItem(position)
         holder.itemView.content.text = track.trackName
 
-        holder.itemView.price.text = track.price + " "  + track.currency
+        holder.itemView.price.text = track.price + " " + track.currency
         holder.itemView.genre.text = track.genre
 
         Picasso.get()
             .load(track.artworkUrl100)
-            // .resize(50, 50)
-            // .centerCrop()
             .into(holder.itemView.image_view)
 
-        //holder.contentView.text = item.content
         holder.itemView.setOnClickListener {
-            val intent = Intent("Something")
-            intent.putExtra("track", track)
+            val intent = Intent(DETAILED_TRACK_RECEIVER)
+            intent.putExtra(TRACK_RESULT, track)
             it.context?.sendBroadcast(intent)
         }
     }

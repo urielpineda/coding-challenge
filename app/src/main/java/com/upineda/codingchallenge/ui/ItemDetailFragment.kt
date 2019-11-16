@@ -25,31 +25,22 @@ class ItemDetailFragment : Fragment() {
      * The dummy content this fragment is presenting.
      */
 
-    private lateinit var test: Track
+    private lateinit var track: Track
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey("track")) {
-                // Load the dummy content specified by the fragment
-                // arguments. In a real-world scenario, use a Loader
-                // to load content from a content provider.
-                //          item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-                // item = test
+            if (it.containsKey(TRACK_RESULT)) {
 
-                test = it.getParcelable("track")
+                track = it.getParcelable(TRACK_RESULT)
 
-                activity?.toolbar_layout?.title = test?.trackName
-                //  activity?.track_image = test?.trackName
-
-
-
+                activity?.toolbar_layout?.title = track?.trackName
                 Picasso.get()
-                    .load(test?.artworkUrl100)
+                    .load(track?.artworkUrl100)
                     .into(object : com.squareup.picasso.Target {
                         override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-                           activity?.toolbar_layout?.background = BitmapDrawable(bitmap)
+                            activity?.toolbar_layout?.background = BitmapDrawable(bitmap)
                         }
 
                         override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {}
@@ -65,16 +56,12 @@ class ItemDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.item_detail, container, false)
-        rootView.item_detail.text = test.longDescription
+        rootView.item_detail.text = track.longDescription
 
         return rootView
     }
 
     companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
-        const val ARG_ITEM_ID = "item_id"
+        const val TRACK_RESULT = "track"
     }
 }

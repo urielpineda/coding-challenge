@@ -59,23 +59,23 @@ class ItemListActivity : AppCompatActivity() {
             twoPane = true
         }
         val iFilter = IntentFilter()
-        iFilter.addAction("Something")
-        registerReceiver(mPlugInReceiver, iFilter)
+        iFilter.addAction(DETAILED_TRACK_RECEIVER)
+        registerReceiver(trackDetailsReceiver, iFilter)
     }
 
     override fun onDestroy() {
-        unregisterReceiver(mPlugInReceiver)
+        unregisterReceiver(trackDetailsReceiver)
         super.onDestroy()
     }
 
-    private val mPlugInReceiver = object : BroadcastReceiver() {
+    private val trackDetailsReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val track = intent?.getParcelableExtra<Track>("track")
+            val track = intent?.getParcelableExtra<Track>(ItemDetailFragment.TRACK_RESULT)
 
             if (twoPane) {
                 val fragment = ItemDetailFragment().apply {
                     arguments = Bundle().apply {
-                        putParcelable("track", track)
+                        putParcelable(ItemDetailFragment.TRACK_RESULT, track)
                     }
                 }
                 supportFragmentManager
@@ -84,10 +84,14 @@ class ItemListActivity : AppCompatActivity() {
                     .commit()
             } else {
                 val intent = Intent(context, ItemDetailActivity::class.java).apply {
-                    putExtra("track", track)
+                    putExtra(ItemDetailFragment.TRACK_RESULT, track)
                 }
                 context?.startActivity(intent)
             }
         }
+    }
+
+    companion object {
+        const val DETAILED_TRACK_RECEIVER = "com.upineda.codingchallenge.trackReceiver"
     }
 }
