@@ -1,14 +1,13 @@
-package com.upineda.codingchallenge.ui
+package com.upineda.codingchallenge
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.upineda.codingchallenge.R
-import com.upineda.codingchallenge.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
+
 
 /**
  * A fragment representing a single Item detail screen.
@@ -21,18 +20,44 @@ class ItemDetailFragment : Fragment() {
     /**
      * The dummy content this fragment is presenting.
      */
-    private var item: DummyContent.DummyItem? = null
+
+    private var test: Track = Track("helloo")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
+            if (it.containsKey("track")) {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-                activity?.toolbar_layout?.title = item?.content
+                //          item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
+                // item = test
+
+                test = it.getParcelable("track")
+
+                activity?.toolbar_layout?.title = test?.trackName
+                //  activity?.track_image = test?.trackName
+
+
+
+             /*   Picasso.get()
+                    .load(test?.artworkUrl100)
+                    // .resize(50, 50)
+                    // .centerCrop()
+                    .into(object : com.squareup.picasso.Target {
+                        override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
+                           // activity?.toolbar_layout?.background = BitmapDrawable(bitmap)
+                        }
+
+                        override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {
+
+                        }
+
+                        override fun onPrepareLoad(placeHolderDrawable: Drawable) {
+
+                        }
+                    })*/
             }
         }
     }
@@ -44,9 +69,11 @@ class ItemDetailFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.item_detail, container, false)
 
         // Show the dummy content as text in a TextView.
-        item?.let {
-            rootView.item_detail.text = it.details
-        }
+        /*       item?.let {
+                   rootView.item_detail.text = it.artistName
+               }*/
+
+        rootView.item_detail.text = test.longDescription
 
         return rootView
     }

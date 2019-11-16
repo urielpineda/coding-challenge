@@ -1,7 +1,9 @@
 package com.upineda.codingchallenge
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
 data class Results(
@@ -12,6 +14,7 @@ data class Results(
     val results: List<Track>
 )
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Track(
     @Json(name = "artistName")
@@ -29,7 +32,7 @@ data class Track(
     @Json(name = "artworkUrl60")
     val artworkUrl60: String = "https://dummyimage.com/60x60/ggg/gggg",
     @Json(name = "artworkUrl100")
-    val artworkUrl100: String = "https://dummyimage.com/100x100/ggg/gggg",
+    val artworkUrl100: String = "https://dummyimage.com/100x100/aaa/aaa",
     @Json(name = "trackName")
     val trackName: String = ""
-)
+) : Parcelable
