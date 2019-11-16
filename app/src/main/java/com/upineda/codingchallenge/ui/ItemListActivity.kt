@@ -9,7 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.upineda.codingchallenge.MainViewModel
 import com.upineda.codingchallenge.R
+import com.upineda.codingchallenge.TracksListAdapter
+import com.upineda.codingchallenge.TracksState
 import com.upineda.codingchallenge.dummy.DummyContent
 
 import kotlinx.android.synthetic.main.activity_item_list.*
@@ -26,6 +31,9 @@ import kotlinx.android.synthetic.main.item_list.*
  */
 class ItemListActivity : AppCompatActivity() {
 
+    lateinit var viewModel: MainViewModel
+    private val tracksAdapter = TracksListAdapter()
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -36,13 +44,24 @@ class ItemListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_list)
 
+
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        item_list.adapter = tracksAdapter
+
+        viewModel.tracksState.observe(this, Observer {
+            when (it) {
+                is TracksState.Complete -> tracksAdapter.submitList(it.data.results)
+            }
+        })
+
+
+
+
+
         setSupportActionBar(toolbar)
         toolbar.title = title
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
 
         if (item_detail_container != null) {
             // The detail container view will be present only in the
@@ -52,7 +71,7 @@ class ItemListActivity : AppCompatActivity() {
             twoPane = true
         }
 
-        setupRecyclerView(item_list)
+        //setupRecyclerView(item_list)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

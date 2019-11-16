@@ -6,12 +6,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class TracksRepository {
     val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("sample.com")
+        .baseUrl("https://itunes.apple.com/")
         .build()
 
     val tracksApi = retrofit.create(TracksApi::class.java)
 
-    suspend fun getListOfTracks(): List<Track> {
+    suspend fun getListOfTracks(): Results {
         return tracksApi.getListOfTracks()
     }
 
