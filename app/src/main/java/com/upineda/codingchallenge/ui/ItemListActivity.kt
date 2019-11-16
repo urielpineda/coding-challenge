@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +16,10 @@ import com.upineda.codingchallenge.*
 
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * An activity representing a list of Pings. This activity
@@ -37,8 +44,6 @@ class ItemListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_list)
 
-
-
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         item_list.adapter = tracksAdapter
@@ -55,8 +60,10 @@ class ItemListActivity : AppCompatActivity() {
             }
         })
 
+        val pref = getSharedPreferences("CodingChallenge",Context.MODE_PRIVATE)
+        val dateExited = pref.getString("LastVisit", "")
+        Toast.makeText(this, dateExited, Toast.LENGTH_LONG).show()
         setSupportActionBar(toolbar)
-        toolbar.title = title
 
         if (item_detail_container != null) {
             // The detail container view will be present only in the
@@ -68,6 +75,11 @@ class ItemListActivity : AppCompatActivity() {
         val iFilter = IntentFilter()
         iFilter.addAction(DETAILED_TRACK_RECEIVER)
         registerReceiver(trackDetailsReceiver, iFilter)
+    }
+
+    override fun onStop() {
+        saveData()
+        super.onStop()
     }
 
     override fun onDestroy() {
@@ -96,6 +108,14 @@ class ItemListActivity : AppCompatActivity() {
                 context?.startActivity(intent)
             }
         }
+    }
+
+    fun saveData() {
+        val pref = getSharedPreferences("CodingChallenge",Context.MODE_PRIVATE)
+        val timeStamp: String = Date().toString()
+        val editor = pref.edit()
+        editor.putString("LastVisit", timeStamp)
+        editor.apply()
     }
 
     companion object {

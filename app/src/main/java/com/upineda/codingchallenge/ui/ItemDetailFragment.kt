@@ -40,22 +40,7 @@ class ItemDetailFragment : Fragment() {
 
         arguments?.let {
             if (it.containsKey(TRACK_RESULT)) {
-
                 track = it.getParcelable(TRACK_RESULT)
-
-                activity?.toolbar_layout?.title = track?.trackName
-
-                Picasso.get()
-                    .load(track?.artworkUrl100)
-                    .into(object : com.squareup.picasso.Target {
-                        override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-                            activity?.toolbar_layout?.background = BitmapDrawable(bitmap)
-                        }
-
-                        override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {}
-
-                        override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
-                    })
             }
         }
     }
@@ -66,8 +51,22 @@ class ItemDetailFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.item_detail, container, false)
 
-        val builder = SpannableStringBuilder()
+        activity?.toolbar_layout?.title = track?.trackName
 
+        Picasso.get()
+            .load(track?.artworkUrl100)
+            .into(object : com.squareup.picasso.Target {
+                override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
+                    activity?.toolbar_layout?.background = BitmapDrawable(bitmap)
+                }
+
+                override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {}
+
+                override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
+            })
+
+
+        val builder = SpannableStringBuilder()
         val str1 = SpannableString("Name: " + track.trackName + " \n" +
                                    "Price: " + track.price + " \n" +
                                    "Genre: " + track.genre + " \n\n")

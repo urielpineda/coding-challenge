@@ -28,7 +28,7 @@ data class Track(
     @Json(name = "primaryGenreName")
     val genre: String = "No genre",
     @Json(name = "longDescription")
-    val longDescription: String = "No description",
+    val longDescription: String = "",
     @Json(name = "artworkUrl30")
     val artworkUrl30: String = "https://dummyimage.com/30x30/aaa/aaa",
     @Json(name = "artworkUrl60")
