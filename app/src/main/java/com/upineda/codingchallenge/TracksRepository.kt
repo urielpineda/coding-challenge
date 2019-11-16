@@ -14,5 +14,4 @@ class TracksRepository {
     suspend fun getListOfTracks(): Results {
         return tracksApi.getListOfTracks()
     }
-
 }

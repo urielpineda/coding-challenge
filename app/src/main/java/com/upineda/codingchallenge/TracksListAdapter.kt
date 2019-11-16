@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_list_content.view.*
 
 
@@ -35,7 +36,17 @@ class TracksListAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val track = getItem(position)
-        holder.itemView.id_text.text = track.trackName
+        holder.itemView.content.text = track.trackName
+
+        holder.itemView.price.text = track.price + " "  + track.currency
+        holder.itemView.genre.text = track.genre
+
+        Picasso.get()
+            .load(track.artworkUrl100)
+            // .resize(50, 50)
+            // .centerCrop()
+            .into(holder.itemView.image_view)
+
         //holder.contentView.text = item.content
         holder.itemView.setOnClickListener {
             val intent = Intent("Something")
