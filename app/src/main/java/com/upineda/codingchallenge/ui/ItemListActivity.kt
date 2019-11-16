@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -43,6 +44,12 @@ class ItemListActivity : AppCompatActivity() {
         item_list.adapter = tracksAdapter
 
         viewModel.tracksState.observe(this, Observer {
+
+            prgTracks.visibility = if(it is TracksState.Loading) View.VISIBLE else View.GONE
+            frameLayout.visibility = if(it is TracksState.Complete) View.VISIBLE else View.GONE
+            errTracks.visibility = if(it is TracksState.Error) View.VISIBLE else View.GONE
+
+
             when (it) {
                 is TracksState.Complete -> tracksAdapter.submitList(it.data.results)
             }

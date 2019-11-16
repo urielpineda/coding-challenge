@@ -18,17 +18,17 @@ data class Results(
 @JsonClass(generateAdapter = true)
 data class Track(
     @Json(name = "artistName")
-    val artistName: String = "No artist found",
+    val artistName: String = "No artist",
     @Json(name = "trackId")
     val trackId: String = "",
     @Json(name = "trackPrice")
-    val price: String = "No price found",
+    val price: String = "No price",
     @Json(name = "currency")
     val currency: String = "",
     @Json(name = "primaryGenreName")
-    val genre: String = "No genre found",
+    val genre: String = "No genre",
     @Json(name = "longDescription")
-    val longDescription: String = "No description found",
+    val longDescription: String = "No description",
     @Json(name = "artworkUrl30")
     val artworkUrl30: String = "https://dummyimage.com/30x30/aaa/aaa",
     @Json(name = "artworkUrl60")
@@ -36,5 +36,5 @@ data class Track(
     @Json(name = "artworkUrl100")
     val artworkUrl100: String = "https://dummyimage.com/100x100/aaa/aaa",
     @Json(name = "trackName")
-    val trackName: String = "No track name found"
+    val trackName: String = ""
 ) : Parcelable

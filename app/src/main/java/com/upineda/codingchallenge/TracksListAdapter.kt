@@ -31,9 +31,17 @@ class TracksListAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val track = getItem(position)
-        holder.itemView.content.text = track.trackName
 
-        holder.itemView.price.text = track.price + " " + track.currency
+        if(track.trackName.isEmpty())
+            return
+
+        holder.itemView.track_name.text = track.trackName
+
+        if(track.price.toFloatOrNull() != null)
+            holder.itemView.price.text = track.price + " " + track.currency
+        else
+            holder.itemView.price.text = track.price
+
         holder.itemView.genre.text = track.genre
 
         Picasso.get()
