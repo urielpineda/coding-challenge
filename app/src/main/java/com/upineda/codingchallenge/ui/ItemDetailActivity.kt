@@ -1,10 +1,11 @@
-package com.upineda.codingchallenge
+package com.upineda.codingchallenge.ui
 
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import com.upineda.codingchallenge.R
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**

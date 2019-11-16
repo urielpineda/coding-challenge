@@ -1,10 +1,11 @@
-package com.upineda.codingchallenge
+package com.upineda.codingchallenge.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.upineda.codingchallenge.R
 import com.upineda.codingchallenge.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
