@@ -59,6 +59,8 @@ class ItemListActivity : AppCompatActivity() {
 
         item_list.adapter = tracksAdapter
 
+        // observes our list view model and displays an error message, loading screen, or
+        // the list of tracks
         listViewModel.tracksState.observe(this, Observer {
 
             prgTracks.visibility = if (it is TracksState.Loading) View.VISIBLE else View.GONE
@@ -98,6 +100,9 @@ class ItemListActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    /** We receive the broadcast from track onClick in tracks list adapter
+     * and load the correct detailed view depending on the device's size
+     */
     private val trackDetailsReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val track = intent?.getParcelableExtra<Track>(ItemDetailFragment.TRACK_RESULT)
@@ -121,11 +126,12 @@ class ItemListActivity : AppCompatActivity() {
         }
     }
 
+    /** Saves date last visited */
     fun saveData() {
         val pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
         val timeStamp: String = Date().toString()
         val editor = pref.edit()
-        editor.putString(LAST_VISITED, "Date last visited: " + timeStamp)
+        editor.putString(LAST_VISITED,  resources.getString(R.string.date_last_visited) + timeStamp)
         editor.apply()
     }
 

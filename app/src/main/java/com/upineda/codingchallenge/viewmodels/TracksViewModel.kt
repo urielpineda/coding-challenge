@@ -13,7 +13,7 @@ class TracksViewModel : ViewModel() {
 
     val tracksRepository = TracksRepository()
 
-    var dateExited = "fdf"
+    var dateExited = ""
 
     init {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->

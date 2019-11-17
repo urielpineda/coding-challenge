@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CodingChallenge</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="date_last_visited">Date last visited: </string>
 </resources>

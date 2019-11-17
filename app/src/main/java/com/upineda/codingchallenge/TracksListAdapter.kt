@@ -2,7 +2,6 @@ package com.upineda.codingchallenge
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -30,6 +29,7 @@ class TracksListAdapter :
         return object : RecyclerView.ViewHolder(view) {}
     }
 
+    // Populate track
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val track = getItem(position)
 
@@ -46,6 +46,7 @@ class TracksListAdapter :
             .load(track.artworkUrl100)
             .into(holder.itemView.image_view)
 
+        // Sends a broadcast to list activity to show track details
         holder.itemView.setOnClickListener {
             val intent = Intent(DETAILED_TRACK_RECEIVER)
             intent.putExtra(TRACK_RESULT, track)

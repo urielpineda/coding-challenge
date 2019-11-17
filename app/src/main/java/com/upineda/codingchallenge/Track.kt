@@ -7,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
 data class Results(
-
     @Json(name = "resultCount")
     val resultCount: String,
     @Json(name = "results")
