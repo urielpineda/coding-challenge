@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 
 class TrackViewModel : ViewModel() {
     var detailTitle = "Invalid track"
-    lateinit var img : BitmapDrawable
+    lateinit var img: BitmapDrawable
 }

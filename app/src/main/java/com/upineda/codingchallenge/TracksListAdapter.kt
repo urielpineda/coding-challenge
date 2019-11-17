@@ -2,6 +2,7 @@ package com.upineda.codingchallenge
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -32,12 +33,9 @@ class TracksListAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val track = getItem(position)
 
-        if(track.trackName.isEmpty())
-            return
-
         holder.itemView.track_name.text = track.trackName
 
-        if(track.price.toFloatOrNull() != null)
+        if (track.price.toFloatOrNull() != null)
             holder.itemView.price.text = track.price + " " + track.currency
         else
             holder.itemView.price.text = track.price

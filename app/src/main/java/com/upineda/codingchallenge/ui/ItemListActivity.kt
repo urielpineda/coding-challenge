@@ -46,17 +46,20 @@ class ItemListActivity : AppCompatActivity() {
 
         viewModel.tracksState.observe(this, Observer {
 
-            prgTracks.visibility = if(it is TracksState.Loading) View.VISIBLE else View.GONE
-            frameLayout.visibility = if(it is TracksState.Complete) View.VISIBLE else View.GONE
-            errTracks.visibility = if(it is TracksState.Error) View.VISIBLE else View.GONE
-
+            prgTracks.visibility = if (it is TracksState.Loading) View.VISIBLE else View.GONE
+            frameLayout.visibility = if (it is TracksState.Complete) View.VISIBLE else View.GONE
+            errTracks.visibility = if (it is TracksState.Error) View.VISIBLE else View.GONE
 
             when (it) {
-                is TracksState.Complete -> tracksAdapter.submitList(it.data.results)
+                is TracksState.Complete -> {
+                    var results = it.data.results
+                    results = results.filter { it.trackName.isNotEmpty() }
+                    tracksAdapter.submitList(results)
+                }
             }
         })
 
-        val pref = getSharedPreferences("CodingChallenge",Context.MODE_PRIVATE)
+        val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
         val dateExited = pref.getString("LastVisit", "")
         Toast.makeText(this, dateExited, Toast.LENGTH_LONG).show()
         setSupportActionBar(toolbar)
@@ -107,7 +110,7 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     fun saveData() {
-        val pref = getSharedPreferences("CodingChallenge",Context.MODE_PRIVATE)
+        val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
         val timeStamp: String = Date().toString()
         val editor = pref.edit()
         editor.putString("LastVisit", timeStamp)

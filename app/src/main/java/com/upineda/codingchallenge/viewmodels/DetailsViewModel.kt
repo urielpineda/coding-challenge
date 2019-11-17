@@ -9,7 +9,7 @@ class DetailsViewModel : ViewModel() {
 
     fun setDetails(track: Track) {
         var price = track.price
-        if(track.price.toFloatOrNull() != null)
+        if (track.price.toFloatOrNull() != null)
             price += " " + track.currency
 
         val text = "Name: " + track.trackName + " \n" +

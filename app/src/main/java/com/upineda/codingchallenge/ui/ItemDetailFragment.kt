@@ -36,17 +36,18 @@ class ItemDetailFragment : Fragment() {
         }
     }
 
-   override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       val binding : ItemDetailBinding = DataBindingUtil.inflate(inflater, R.layout.item_detail, container, false)
-       viewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
-       viewModel.setDetails(track)
+        val binding: ItemDetailBinding =
+            DataBindingUtil.inflate(inflater, R.layout.item_detail, container, false)
+        viewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
+        viewModel.setDetails(track)
 
-       binding.viewModel = viewModel
-       binding.lifecycleOwner = this
-       return binding.root
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     companion object {
