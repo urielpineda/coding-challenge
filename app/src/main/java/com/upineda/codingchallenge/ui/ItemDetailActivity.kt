@@ -25,12 +25,6 @@ class ItemDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_detail)
-        setSupportActionBar(detail_toolbar)
-
-        // Show the Up button in the action bar.
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
 
         val trackViewModel = ViewModelProviders.of(this)
             .get(TrackViewModel::class.java)
@@ -41,6 +35,11 @@ class ItemDetailActivity : AppCompatActivity() {
             this.lifecycleOwner = this@ItemDetailActivity
             this.viewModel = trackViewModel
         }
+
+        setSupportActionBar(detail_toolbar)
+
+        // Show the Up button in the action bar.
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
