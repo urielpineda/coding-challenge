@@ -50,8 +50,8 @@ class ItemListActivity : AppCompatActivity() {
             this.viewModel = listViewModel
         }
 
-        val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
-        val dateExited = pref.getString("LastVisit", "")
+        val pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+        val dateExited = pref.getString(LAST_VISITED, "")
         if (dateExited.isNotEmpty()) {
             listViewModel.dateExited = dateExited
             last_visited.visibility = View.VISIBLE
@@ -122,14 +122,16 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     fun saveData() {
-        val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
+        val pref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
         val timeStamp: String = Date().toString()
         val editor = pref.edit()
-        editor.putString("LastVisit", "Date last visited: " + timeStamp)
+        editor.putString(LAST_VISITED, "Date last visited: " + timeStamp)
         editor.apply()
     }
 
     companion object {
         const val DETAILED_TRACK_RECEIVER = "com.upineda.codingchallenge.trackReceiver"
+        const val LAST_VISITED = "LastVisit"
+        const val PREFERENCES = "CodingChallenge"
     }
 }
