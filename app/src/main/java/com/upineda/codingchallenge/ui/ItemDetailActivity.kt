@@ -1,12 +1,17 @@
 package com.upineda.codingchallenge.ui
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.upineda.codingchallenge.ItemDetailFragment
-import com.upineda.codingchallenge.R
-import com.upineda.codingchallenge.Track
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import com.squareup.picasso.Picasso
+import com.upineda.codingchallenge.*
+import com.upineda.codingchallenge.databinding.ActivityItemDetailBinding
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**
@@ -25,6 +30,17 @@ class ItemDetailActivity : AppCompatActivity() {
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+        val trackViewModel = ViewModelProviders.of(this)
+            .get(TrackViewModel::class.java)
+
+        DataBindingUtil.setContentView<ActivityItemDetailBinding>(
+            this, R.layout.activity_item_detail
+        ).apply {
+            this.setLifecycleOwner(this@ItemDetailActivity)
+            this.viewModel = trackViewModel
+        }
+
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
@@ -39,9 +55,22 @@ class ItemDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
-                    val res : Track = intent.getParcelableExtra(ItemDetailFragment.TRACK_RESULT)
+                    val res: Track = intent.getParcelableExtra(ItemDetailFragment.TRACK_RESULT)
 
                     putParcelable(ItemDetailFragment.TRACK_RESULT, res)
+                    trackViewModel.detailTitle = res.trackName
+
+                    Picasso.get()
+                        .load(res?.artworkUrl100)
+                        .into(object : com.squareup.picasso.Target {
+                            override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
+                                trackViewModel.img = BitmapDrawable(bitmap)
+                            }
+
+                            override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {}
+
+                            override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
+                        })
                 }
             }
 

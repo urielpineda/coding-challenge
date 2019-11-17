@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +14,6 @@ import com.upineda.codingchallenge.*
 
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
