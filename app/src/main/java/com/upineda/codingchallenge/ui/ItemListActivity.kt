@@ -8,10 +8,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.upineda.codingchallenge.*
-import com.upineda.codingchallenge.viewmodels.MainViewModel
+import com.upineda.codingchallenge.databinding.ActivityItemListBinding
+import com.upineda.codingchallenge.viewmodels.TracksViewModel
 
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -27,7 +29,7 @@ import java.util.*
  */
 class ItemListActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MainViewModel
+    lateinit var listViewModel: TracksViewModel
     private val tracksAdapter = TracksListAdapter()
 
     /**
@@ -38,13 +40,26 @@ class ItemListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_list)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        listViewModel = ViewModelProviders.of(this).get(TracksViewModel::class.java)
+
+        DataBindingUtil.setContentView<ActivityItemListBinding>(
+            this, R.layout.activity_item_list
+        ).apply {
+            this.lifecycleOwner = this@ItemListActivity
+            this.viewModel = listViewModel
+        }
+
+        val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
+        val dateExited = pref.getString("LastVisit", "")
+        if (dateExited.isNotEmpty()) {
+            listViewModel.dateExited = dateExited
+            last_visited.visibility = View.VISIBLE
+        }
 
         item_list.adapter = tracksAdapter
 
-        viewModel.tracksState.observe(this, Observer {
+        listViewModel.tracksState.observe(this, Observer {
 
             prgTracks.visibility = if (it is TracksState.Loading) View.VISIBLE else View.GONE
             frameLayout.visibility = if (it is TracksState.Complete) View.VISIBLE else View.GONE
@@ -59,9 +74,6 @@ class ItemListActivity : AppCompatActivity() {
             }
         })
 
-        val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
-        val dateExited = pref.getString("LastVisit", "")
-        Toast.makeText(this, dateExited, Toast.LENGTH_LONG).show()
         setSupportActionBar(toolbar)
 
         if (item_detail_container != null) {
@@ -113,7 +125,7 @@ class ItemListActivity : AppCompatActivity() {
         val pref = getSharedPreferences("CodingChallenge", Context.MODE_PRIVATE)
         val timeStamp: String = Date().toString()
         val editor = pref.edit()
-        editor.putString("LastVisit", timeStamp)
+        editor.putString("LastVisit", "Date last visited: " + timeStamp)
         editor.apply()
     }
 

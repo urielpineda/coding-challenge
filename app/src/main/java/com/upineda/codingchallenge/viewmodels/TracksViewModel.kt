@@ -8,10 +8,12 @@ import com.upineda.codingchallenge.TracksState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class TracksViewModel : ViewModel() {
     val tracksState = MutableLiveData<TracksState>()
 
     val tracksRepository = TracksRepository()
+
+    var dateExited = "fdf"
 
     init {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->

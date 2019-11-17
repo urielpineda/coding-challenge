@@ -38,7 +38,7 @@ class ItemDetailActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityItemDetailBinding>(
             this, R.layout.activity_item_detail
         ).apply {
-            this.setLifecycleOwner(this@ItemDetailActivity)
+            this.lifecycleOwner = this@ItemDetailActivity
             this.viewModel = trackViewModel
         }
 
@@ -62,7 +62,7 @@ class ItemDetailActivity : AppCompatActivity() {
                     trackViewModel.detailTitle = res.trackName
 
                     Picasso.get()
-                        .load(res?.artworkUrl100)
+                        .load(res.artworkUrl100)
                         .into(object : com.squareup.picasso.Target {
                             override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
                                 trackViewModel.img = BitmapDrawable(bitmap)
