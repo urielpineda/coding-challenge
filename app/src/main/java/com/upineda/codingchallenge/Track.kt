@@ -29,7 +29,7 @@ data class Track(
     @Json(name = "longDescription")
     val longDescription: String = "",
     @Json(name = "artworkUrl100")
-    val artworkUrl100: String = "https://dummyimage.com/100x100/aaa/aaa",
+    val artworkUrl100: String = "",
     @Json(name = "trackName")
     val trackName: String = ""
 ) : Parcelable

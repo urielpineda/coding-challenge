@@ -42,9 +42,13 @@ class TracksListAdapter :
 
         holder.itemView.genre.text = track.genre
 
-        Picasso.get()
-            .load(track.artworkUrl100)
-            .into(holder.itemView.image_view)
+        if (track.artworkUrl100.isNotEmpty()) {
+            Picasso.get()
+                .load(track.artworkUrl100)
+                .into(holder.itemView.image_view)
+        } else {
+            holder.itemView.image_view.setImageResource(R.drawable.placeholder)
+        }
 
         // Sends a broadcast to list activity to show track details
         holder.itemView.setOnClickListener {

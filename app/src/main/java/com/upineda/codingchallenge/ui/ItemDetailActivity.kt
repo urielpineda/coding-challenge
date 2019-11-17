@@ -61,17 +61,26 @@ class ItemDetailActivity : AppCompatActivity() {
                     putParcelable(ItemDetailFragment.TRACK_RESULT, res)
                     trackViewModel.detailTitle = res.trackName
 
-                    Picasso.get()
-                        .load(res.artworkUrl100)
-                        .into(object : com.squareup.picasso.Target {
-                            override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-                                trackViewModel.img = BitmapDrawable(bitmap)
-                            }
+                    if (res.artworkUrl100.isNotEmpty()) {
+                        Picasso.get()
+                            .load(res.artworkUrl100)
+                            .into(object : com.squareup.picasso.Target {
+                                override fun onBitmapLoaded(
+                                    bitmap: Bitmap,
+                                    from: Picasso.LoadedFrom
+                                ) {
+                                    trackViewModel.img = BitmapDrawable(bitmap)
+                                }
 
-                            override fun onBitmapFailed(e: Exception, errorDrawable: Drawable) {}
+                                override fun onBitmapFailed(
+                                    e: Exception,
+                                    errorDrawable: Drawable
+                                ) {
+                                }
 
-                            override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
-                        })
+                                override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
+                            })
+                    }
                 }
             }
 
