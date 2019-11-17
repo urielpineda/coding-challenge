@@ -17,10 +17,10 @@ The list shows the following details from the API:
 &emsp;In addition, the detail view shows the Long Description for the given item.
 <br>
 <br>
-The app is based of Android Studio's built-in master-flow template which uses Material Design and a RecyclerView for the list of items.
+The app is based of Android Studio's built-in master-flow template which uses <b>Material Design</b> and a <b>RecyclerView</b> for the list of items.
 
 <br>
-Some libraries used in the app:
+<b>Some libraries used in the app:</b>
 
 <br>
 &emsp;  For handling the API and JSON:
@@ -45,26 +45,8 @@ Some libraries used in the app:
 <br>
 Design pattern used:
 <br>
-&emsp;MVVM
+<b>MVVM (Model View ViewModel)</b>
 <br>
-&emsp; I had the hardest time choosing what design pattern to use. I have been used to developing using MVC and for such a simple app, MVP and MVC were probably the simplest to use and the quickest to catch on. But I decided to use MVVM (Model View ViewModel) for this app. Looking at articles online about android architecures I'd often see MVVM being talked about and how it's all the fuss. 
-<br>
-The reasons I chose this design pattern is:
-<br>
-&emsp;&emsp;Data Binding sounds and looks cool
-<br>
-&emsp;&emsp;Easier unit tests (although I don't have unit tests here)
-<br>
-&emsp;&emsp;It's supposedly makes your life easier (don't know about this one)
-<br>
-&emsp;&emsp;It's a clean and trusted architecture
-<br>
-
-
-
-Although it was very challenging keeping the app strictly MVVM, I had fun and learned a lot from the 2 days of practicing this. Hopefully, in the future, using MVVM would be second nature.
-<br>
-
 
 And to keep it simple, I only used SharedPreferences to save and load the last time the user visited the app, shown inside the list header.
 <br>
