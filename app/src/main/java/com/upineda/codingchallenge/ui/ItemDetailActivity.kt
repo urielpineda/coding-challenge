@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
 import com.upineda.codingchallenge.*
 import com.upineda.codingchallenge.databinding.ActivityItemDetailBinding
+import com.upineda.codingchallenge.viewmodels.TrackViewModel
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**

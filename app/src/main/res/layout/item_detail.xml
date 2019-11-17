@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.upineda.codingchallenge.DetailsViewModel" />
+            type="com.upineda.codingchallenge.viewmodels.DetailsViewModel" />
     </data>
 
     <TextView

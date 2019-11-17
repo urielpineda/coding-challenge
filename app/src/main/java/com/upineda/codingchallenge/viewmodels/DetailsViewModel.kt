@@ -1,6 +1,7 @@
-package com.upineda.codingchallenge
+package com.upineda.codingchallenge.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.upineda.codingchallenge.Track
 
 class DetailsViewModel : ViewModel() {
 

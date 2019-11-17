@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.upineda.codingchallenge.databinding.ItemDetailBinding
+import com.upineda.codingchallenge.viewmodels.DetailsViewModel
 
 
 /**
